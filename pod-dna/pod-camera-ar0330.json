@@ -1,0 +1,17 @@
+{
+	"max_5v_load":   0,
+	"max_3v3_load":  510,
+	"max_vio_load":  50,
+	"is_lvds":       true,
+	"is_doublewide": false,
+	"vio": [
+		{ "min": 180, "max": 330 },
+		{ "min": 0,   "max": 0 },
+		{ "min": 0,   "max": 0 },
+		{ "min": 0,   "max": 0 }
+		],
+	"manufacturer_name": "Opal Kelly Incorporated",
+	"product_name":      "POD-CAMERA",
+	"product_model":     "POD-CAMERA-AR0330",
+	"product_version":   "A"
+}

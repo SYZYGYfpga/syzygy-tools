@@ -1,0 +1,17 @@
+{
+	"max_5v_load":   0,
+	"max_3v3_load":  1000,
+	"max_vio_load":  0,
+	"is_lvds":       false,
+	"is_doublewide": false,
+	"vio": [
+		{ "min": 330, "max": 330 },
+		{ "min": 0,   "max": 0 },
+		{ "min": 0,   "max": 0 },
+		{ "min": 0,   "max": 0 }
+		],
+	"manufacturer_name": "Opal Kelly Incorporated",
+	"product_name":      "POD-PMOD",
+	"product_model":     "POD-PMOD",
+	"product_version":   "A"
+}

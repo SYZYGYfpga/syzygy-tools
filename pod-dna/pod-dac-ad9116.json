@@ -1,0 +1,17 @@
+{
+	"max_5v_load":   200,
+	"max_3v3_load":  10,
+	"max_vio_load":  20,
+	"is_lvds":       false,
+	"is_doublewide": false,
+	"vio": [
+		{ "min": 180, "max": 330 },
+		{ "min": 0,   "max": 0 },
+		{ "min": 0,   "max": 0 },
+		{ "min": 0,   "max": 0 }
+		],
+	"manufacturer_name": "Opal Kelly Incorporated",
+	"product_name":      "POD-DAC-AD911x",
+	"product_model":     "POD-DAC-AD9116",
+	"product_version":   "A"
+}

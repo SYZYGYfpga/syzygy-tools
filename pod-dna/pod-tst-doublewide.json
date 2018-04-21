@@ -1,0 +1,17 @@
+{
+	"max_5v_load":   10,
+	"max_3v3_load":  10,
+	"max_vio_load":  10,
+	"is_lvds":       false,
+	"is_doublewide": true,
+	"vio": [
+		{ "min": 180, "max": 180 },
+		{ "min": 0,   "max": 0   },
+		{ "min": 0,   "max": 0   },
+		{ "min": 0,   "max": 0   }
+		],
+	"manufacturer_name": "Opal Kelly Incorporated",
+	"product_name":      "TST-POD-STD - This is a test for a doublewide pod to check for doublewide funcitonality in the smartVIO controller.",
+	"product_model":     "TST-POD-STD",
+	"product_version":   "A"
+}
