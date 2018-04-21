@@ -51,5 +51,8 @@ requires GCC 4.9 or later.
 
 Individual applications can be built by running `make <application>`.
 
+Running `make runtests` will build everything needed to run the smartvio-test
+application and execute the tests.
+
 This build has been tested on a machine running Ubuntu 16.04 LTS with
 GCC 5.4.0.
