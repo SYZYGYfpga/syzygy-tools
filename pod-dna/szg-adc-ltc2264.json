@@ -11,7 +11,7 @@
 		{ "min": 0,   "max": 0 }
 		],
 	"manufacturer_name": "Opal Kelly Incorporated",
-	"product_name":      "POD-ADC-LTC226x",
-	"product_model":     "POD-ADC-LTC2264",
+	"product_name":      "SZG-ADC-LTC226x",
+	"product_model":     "SZG-ADC-LTC2264",
 	"product_version":   "A"
 }

@@ -11,7 +11,7 @@
 		{ "min": 0,   "max": 0   }
 		],
 	"manufacturer_name": "Opal Kelly Incorporated",
-	"product_name":      "TST-POD-STD - This test pod has a series of non-standard VIOs and can be used to test if the SmartVIO solver is working correctly",
-	"product_model":     "TST-POD-STD",
+	"product_name":      "SZG-TST-STD - This test pod has a series of non-standard VIOs and can be used to test if the SmartVIO solver is working correctly",
+	"product_model":     "SZG-TST-STD",
 	"product_version":   "A"
 }

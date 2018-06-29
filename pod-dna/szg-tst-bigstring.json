@@ -11,7 +11,7 @@
 		{ "min": 0,   "max": 0 }
 		],
 	"manufacturer_name": "Opal Kelly Incorporated",
-	"product_name":      "TST-POD-STD - This is just a standard pod with a very long (max length) string for the product name. This can be useful when testing SmartVIO controllers to ensure that they can read in the full string correctly. The string should end with a single '.'  .",
-	"product_model":     "TST-POD-STD",
+	"product_name":      "SZG-TST-STD - This is just a standard pod with a very long (max length) string for the product name. This can be useful when testing SmartVIO controllers to ensure that they can read in the full string correctly. The string should end with a single '.'  .",
+	"product_model":     "SZG-TST-STD",
 	"product_version":   "A"
 }
