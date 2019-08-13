@@ -124,7 +124,7 @@ TEST_CASE( "No Peripherals Inserted", "[smartvio]" ) {
 // Basic test, read in a DNA blob for a POD-PMOD on port 1 and solve
 TEST_CASE( "Basic SmartVIO Test", "[smartvio]" ) {
 	// Read in POD-PMOD DNA Blob
-	std::ifstream dna_blob(std::string(TEST_BLOB_DIR) + std::string("pod-pmod.bin"), std::ifstream::in);
+	std::ifstream dna_blob(std::string(TEST_BLOB_DIR) + std::string("szg-pmod.bin"), std::ifstream::in);
 	unsigned char dna_header[SZG_DNA_HEADER_LENGTH_V1 + 1];
 	szgSmartVIOConfig svio = default_svio;
 
@@ -143,7 +143,7 @@ TEST_CASE( "Basic SmartVIO Test", "[smartvio]" ) {
 //  and solve.
 TEST_CASE( "Doublewide Group Test", "[smartvio]" ) {
 	// Read in doublewide test DNA Blob
-	std::ifstream dna_blob(std::string(TEST_BLOB_DIR) + std::string("pod-tst-doublewide.bin"), std::ifstream::in);
+	std::ifstream dna_blob(std::string(TEST_BLOB_DIR) + std::string("szg-tst-doublewide.bin"), std::ifstream::in);
 	unsigned char dna_header[SZG_DNA_HEADER_LENGTH_V1 + 1];
 	szgSmartVIOConfig svio = default_svio;
 
@@ -162,7 +162,7 @@ TEST_CASE( "Doublewide Group Test", "[smartvio]" ) {
 //  port 1 and solve. The FPGA-side of port 2 is modified to cause a failure
 TEST_CASE( "Failing Doublewide Group Test", "[smartvio]" ) {
 	// Read in doublewide test DNA Blob
-	std::ifstream dna_blob(std::string(TEST_BLOB_DIR) + std::string("pod-tst-doublewide.bin"), std::ifstream::in);
+	std::ifstream dna_blob(std::string(TEST_BLOB_DIR) + std::string("szg-tst-doublewide.bin"), std::ifstream::in);
 	unsigned char dna_header[SZG_DNA_HEADER_LENGTH_V1 + 1];
 	szgSmartVIOConfig svio = default_svio;
 

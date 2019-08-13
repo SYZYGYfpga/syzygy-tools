@@ -3,7 +3,7 @@ INCLUDEDIR = include
 
 CFLAGS += -Wall
 
-TEST_BLOBS = test-dna-blobs/pod-tst-doublewide.bin test-dna-blobs/pod-pmod.bin
+TEST_BLOBS = test-dna-blobs/szg-tst-doublewide.bin test-dna-blobs/szg-pmod.bin
 
 all: smartvio-test dna-writer
 
@@ -20,7 +20,7 @@ smartvio/syzygy.o: smartvio/syzygy.c
 	$(CC) $(CFLAGS) -I $(INCLUDEDIR) -o $@ -c $^
 
 
-$(TEST_BLOBS): test-dna-blobs/%.bin: pod-dna/%.json
+$(TEST_BLOBS): test-dna-blobs/%.bin: szg-dna/%.json
 	mkdir -p test-dna-blobs
 	./dna-writer $< $@ ABC
 
