@@ -45,6 +45,7 @@
 // Maximum number of SmartVIO ranges definable in the DNA.
 #define SZG_ATTR_LVDS                       (0x0001)
 #define SZG_ATTR_DOUBLEWIDE                 (0x0002)
+#define SZG_ATTR_TXR4                       (0x0004)
 
 // Maximum number of SmartVIO ranges defined in the DNA header.
 #define SZG_MAX_DNA_RANGES                  (4)

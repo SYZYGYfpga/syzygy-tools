@@ -4,6 +4,7 @@
 	"max_vio_load":  10,
 	"is_lvds":       true,
 	"is_doublewide": false,
+	"is_txr4":       false,
 	"vio": [
 		{ "min": 120, "max": 330 },
 		{ "min": 0,   "max": 0 },
