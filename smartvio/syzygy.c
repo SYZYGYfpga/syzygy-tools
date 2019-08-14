@@ -164,6 +164,11 @@ szgSolveSmartVIOGroup(szgSmartVIOPort *ports, int group_mask)
 				return -1;
 			}
 
+			// Check if a TXR2 or TXR4 peripheral is connected to the wrong port
+			if ((ports[i].port_attr ^ ports[i].attr) & SZG_ATTR_TXR4) {
+				return -1;
+			}
+
 			// Check the interval pointed to by rangePtr.
 			vmin = ports[i].ranges[rangePtrs[i]].min;
 			vmax = ports[i].ranges[rangePtrs[i]].max;
