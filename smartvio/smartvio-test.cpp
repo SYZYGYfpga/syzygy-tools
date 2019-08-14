@@ -261,6 +261,13 @@ TEST_CASE( "Check SmartVIO Required Version", "[smartvio]" ) {
 
 	REQUIRE(szgSolveSmartVIOGroup(svio.ports, 0x1) == -1);
 
+	// Failing - Check minor required version
+	svio.ports[1].req_ver_major = SVIO_IMPL_VER_MAJOR;
+	svio.ports[1].req_ver_minor = 255;
+	svio.ports[1].present = 1;
+
+	REQUIRE(szgSolveSmartVIOGroup(svio.ports, 0x1) == -1);
+
 	// Passing - Currently supported version
 	svio.ports[1].req_ver_major = SVIO_IMPL_VER_MAJOR;
 	svio.ports[1].req_ver_minor = SVIO_IMPL_VER_MINOR;
