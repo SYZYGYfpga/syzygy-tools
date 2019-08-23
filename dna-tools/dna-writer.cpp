@@ -47,6 +47,7 @@ using json = nlohmann::json;
 int main(int argc, char *argv[])
 {
 	std::vector<uint8_t> dna_header(SZG_DNA_HEADER_LENGTH_V1);
+	uint8_t min_ver_major, min_ver_minor;
 
 	// Print usage if there are not enough or too many arguments
 	if ((argc < 3) || (argc > 4)) {
@@ -72,15 +73,23 @@ int main(int argc, char *argv[])
 	dna_header[SZG_DNA_PTR_DNA_MAJOR] = DNA_SPEC_MAJOR;
 	dna_header[SZG_DNA_PTR_DNA_MINOR] = DNA_SPEC_MINOR;
 
-	// TXR4 peripherals require version 1.1, otherwise any dna parser should
-	// work.
+	// By default the DNA should be compatible with any version of the spec.
+	min_ver_major = 0;
+	min_ver_minor = 0;
+
+	// TXR4 peripherals require version > 1.1
 	if (dna_json["is_txr4"].get<bool>() == true) {
-		dna_header[SZG_DNA_PTR_DNA_REQUIRED_MAJOR] = 1;
-		dna_header[SZG_DNA_PTR_DNA_REQUIRED_MINOR] = 1;
-	} else {
-		dna_header[SZG_DNA_PTR_DNA_REQUIRED_MAJOR] = 0;
-		dna_header[SZG_DNA_PTR_DNA_REQUIRED_MINOR] = 0;
+		if (min_ver_major < 1) {
+			min_ver_major = 1;
+			min_ver_minor = 1;
+		} else if ((min_ver_major == 1) &&
+		           (min_ver_minor < 1)) {
+			min_ver_minor = 1;
+		}
 	}
+
+	dna_header[SZG_DNA_PTR_DNA_REQUIRED_MAJOR] = min_ver_major;
+	dna_header[SZG_DNA_PTR_DNA_REQUIRED_MINOR] = min_ver_minor;
 
 	dna_header[SZG_DNA_PTR_MAX_5V_LOAD] = dna_json["max_5v_load"].get<uint16_t>() & 0xFF;
 	dna_header[SZG_DNA_PTR_MAX_5V_LOAD + 1] = dna_json["max_5v_load"].get<uint16_t>() >> 8;
