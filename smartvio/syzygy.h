@@ -31,7 +31,7 @@
 
 // SmartVIO version implemented and supported by this library
 #define SVIO_IMPL_VER_MAJOR (1)
-#define SVIO_IMPL_VER_MINOR (0)
+#define SVIO_IMPL_VER_MINOR (1)
 
 // CARRIER-SPECIFIC PARAMETERS
 // Complete these constant definitions with those appropriate to your carrier.
@@ -98,7 +98,8 @@ typedef struct {
 	int                group; // used to store which VIO group a port is on
 	unsigned int       req_ver_major; // Required major version support
 	unsigned int       req_ver_minor; // Required minor version support
-	int                attr; // used to store the doublewide or LVDS attributes
+	int                attr; // used to store peripheral attributes, currently doublewide, LVDS, and TXR4
+	int                port_attr; // used to store port-side attributes, currently only TXR4
 	// For a double-wide set of ports spanning two groups, the doublewide mate
 	// must point to the "other" group that a port will be mated with when a
 	// doublewide peripheral is connected
