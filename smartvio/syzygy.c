@@ -3,7 +3,7 @@
 // Includes SmartVIO helper routines.
 //
 //------------------------------------------------------------------------
-// Copyright (c) 2014-2018 Opal Kelly Incorporated
+// Copyright (c) 2014-2019 Opal Kelly Incorporated
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -76,6 +76,8 @@ szgParsePortDNA(int n, szgSmartVIOConfig *svio, unsigned char *dnaBuf, int lengt
 	}
 
 	svio->ports[n].present = 1;
+	svio->ports[n].req_ver_major = dnaBuf[SZG_DNA_PTR_DNA_REQUIRED_MAJOR];
+	svio->ports[n].req_ver_minor = dnaBuf[SZG_DNA_PTR_DNA_REQUIRED_MINOR];
 	svio->ports[n].attr = (dnaBuf[15] << 8) | (dnaBuf[14]);
 	for (i=0; i<SZG_MAX_DNA_RANGES; i++) {
 		vmin = (dnaBuf[SZG_DNA_MIN_VIO_RANGE0 + i*4 + 1] << 8) | (dnaBuf[SZG_DNA_MIN_VIO_RANGE0 + i*4]);
@@ -121,7 +123,6 @@ szgParsePortDNA(int n, szgSmartVIOConfig *svio, unsigned char *dnaBuf, int lengt
 }
 
 
-
 /// Searches for a VIO solution that satisfies all present ports of
 /// a group. The search inspects all combinations of voltage ranges
 /// and selects the first one found.
@@ -153,6 +154,19 @@ szgSolveSmartVIOGroup(szgSmartVIOPort *ports, int group_mask)
 			// must factor into our SmartVIO solution. Otherwise, we skip it.
 			if (0 == (group_mask & (1 << ports[i].group)) ) {
 				continue;
+			}
+
+			// Check the minimum support version of the peripheral in the target port
+			if ((ports[i].req_ver_major > SVIO_IMPL_VER_MAJOR)) {
+				return -1;
+			} else if ((ports[i].req_ver_major == SVIO_IMPL_VER_MAJOR)
+			        && (ports[i].req_ver_minor > SVIO_IMPL_VER_MINOR)) {
+				return -1;
+			}
+
+			// Check if a TXR2 or TXR4 peripheral is connected to the wrong port
+			if ((ports[i].port_attr ^ ports[i].attr) & SZG_ATTR_TXR4) {
+				return -1;
 			}
 
 			// Check the interval pointed to by rangePtr.
