@@ -78,7 +78,7 @@ szgParsePortDNA(int n, szgSmartVIOConfig *svio, unsigned char *dnaBuf, int lengt
 	svio->ports[n].present = 1;
 	svio->ports[n].req_ver_major = dnaBuf[SZG_DNA_PTR_DNA_REQUIRED_MAJOR];
 	svio->ports[n].req_ver_minor = dnaBuf[SZG_DNA_PTR_DNA_REQUIRED_MINOR];
-	svio->ports[n].attr = (dnaBuf[15] << 8) | (dnaBuf[14]);
+	svio->ports[n].attr = (dnaBuf[SZG_DNA_PTR_ATTRIBUTES + 1] << 8) | (dnaBuf[SZG_DNA_PTR_ATTRIBUTES]);
 	for (i=0; i<SZG_MAX_DNA_RANGES; i++) {
 		vmin = (dnaBuf[SZG_DNA_MIN_VIO_RANGE0 + i*4 + 1] << 8) | (dnaBuf[SZG_DNA_MIN_VIO_RANGE0 + i*4]);
 		vmax = (dnaBuf[SZG_DNA_MAX_VIO_RANGE0 + i*4 + 1] << 8) | (dnaBuf[SZG_DNA_MAX_VIO_RANGE0 + i*4]);
