@@ -4,7 +4,7 @@
 	"max_vio_load":  10,
 	"is_lvds":       false,
 	"is_doublewide": false,
-	"is_txr4":       false,
+	"is_txr4":       true,
 	"vio": [
 		{ "min": 180, "max": 180 },
 		{ "min": 0,   "max": 0 },
@@ -12,7 +12,7 @@
 		{ "min": 0,   "max": 0 }
 		],
 	"manufacturer_name": "Opal Kelly Incorporated",
-	"product_name":      "SZG-TST-TXR",
-	"product_model":     "SZG-TST-TXR",
+	"product_name":      "SZG-TST-TXR4",
+	"product_model":     "SZG-TST-TXR4",
 	"product_version":   "A"
 }

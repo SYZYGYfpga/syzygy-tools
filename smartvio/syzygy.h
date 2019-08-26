@@ -3,7 +3,7 @@
 // Includes SmartVIO helper routines.
 //
 //------------------------------------------------------------------------
-// Copyright (c) 2014-2018 Opal Kelly Incorporated
+// Copyright (c) 2014-2019 Opal Kelly Incorporated
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,13 @@
 //------------------------------------------------------------------------
 
 
+// LIBRARY PARAMETERS
+// Constraints that apply to this library itself
+
+// SmartVIO version implemented and supported by this library
+#define SVIO_IMPL_VER_MAJOR (1)
+#define SVIO_IMPL_VER_MINOR (1)
+
 // CARRIER-SPECIFIC PARAMETERS
 // Complete these constant definitions with those appropriate to your carrier.
 // Number of ports on the most populous SmartVIO group, including FPGA constraints.
@@ -45,6 +52,7 @@
 // Maximum number of SmartVIO ranges definable in the DNA.
 #define SZG_ATTR_LVDS                       (0x0001)
 #define SZG_ATTR_DOUBLEWIDE                 (0x0002)
+#define SZG_ATTR_TXR4                       (0x0004)
 
 // Maximum number of SmartVIO ranges defined in the DNA header.
 #define SZG_MAX_DNA_RANGES                  (4)
@@ -88,7 +96,10 @@ typedef struct {
 	int                i2c_addr; // 0x00 to refer to the host, otherwise it's a port
 	int                present;
 	int                group; // used to store which VIO group a port is on
-	int                attr; // used to store the doublewide or LVDS attributes
+	unsigned int       req_ver_major; // Required major version support
+	unsigned int       req_ver_minor; // Required minor version support
+	int                attr; // used to store peripheral attributes, currently doublewide, LVDS, and TXR4
+	int                port_attr; // used to store port-side attributes, currently only TXR4
 	// For a double-wide set of ports spanning two groups, the doublewide mate
 	// must point to the "other" group that a port will be mated with when a
 	// doublewide peripheral is connected

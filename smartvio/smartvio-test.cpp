@@ -62,7 +62,10 @@ szgSmartVIOConfig default_svio = {
 			0x00, // i2c_addr
 			1,    // present
 			0,    // group
+			0,    // req_ver_major
+			0,    // req_ver_minor
 			0x00, // attr
+			0x00, // port_attr
 			0,    // doublewide_mate
 			1,    // range_count
 			{ {120, 330}, {0,0}, {0,0}, {0,0} } // ranges
@@ -70,7 +73,10 @@ szgSmartVIOConfig default_svio = {
 			0x30, // i2c_addr
 			0,    // present
 			0,    // group
+			0,    // req_ver_major
+			0,    // req_ver_minor
 			0x00, // attr
+			0x00, // port_attr
 			1,    // doublewide_mate
 			0,    // range_count
 			{ {0,0}, {0,0}, {0,0}, {0,0} } // ranges
@@ -79,7 +85,10 @@ szgSmartVIOConfig default_svio = {
 			0x00, // i2c_addr
 			1,    // present
 			1,    // group
+			0,    // req_ver_major
+			0,    // req_ver_minor
 			0x00, // attr
+			0x00, // port_attr
 			1,    // doublewide_mate
 			1,    // range_count
 			{ {120, 330}, {0,0}, {0,0}, {0,0} } // ranges
@@ -87,7 +96,10 @@ szgSmartVIOConfig default_svio = {
 			0x31, // i2c_addr
 			0,    // present
 			1,    // group
+			0,    // req_ver_major
+			0,    // req_ver_minor
 			0x00, // attr
+			0x00, // port_attr
 			0,    // doublewide_mate
 			0,    // range_count
 			{ {0,0}, {0,0}, {0,0}, {0,0} } // ranges
@@ -96,7 +108,10 @@ szgSmartVIOConfig default_svio = {
 			0x00, // i2c_addr
 			1,    // present
 			2,    // group
+			0,    // req_ver_major
+			0,    // req_ver_minor
 			0x00, // attr
+			0x00, // port_attr
 			2,    // doublewide_mate
 			1,    // range_count
 			{ {120, 330}, {0,0}, {0,0}, {0,0} } // ranges
@@ -104,7 +119,10 @@ szgSmartVIOConfig default_svio = {
 			0x32, // i2c_addr
 			0,    // present
 			2,    // group
+			0,    // req_ver_major
+			0,    // req_ver_minor
 			0x00, // attr
+			0x00, // port_attr
 			2,    // doublewide_mate
 			0,    // range_count
 			{ {0,0}, {0,0}, {0,0}, {0,0} } // ranges
@@ -235,5 +253,62 @@ TEST_CASE( "Failing SmartVIO Tests", "[smartvio]" ) {
 	svio.ports[1].present = 1;
 
 	REQUIRE(szgSolveSmartVIOGroup(svio.ports, 0x1) == -1);
+}
+
+// Ensure that the SmartVIO solver checks for the minimum required version.
+//  If the minimum required version is not met, fail the test.
+TEST_CASE( "Check SmartVIO Required Version", "[smartvio]" ) {
+	szgSmartVIOConfig svio = default_svio;
+
+	// Failing - Maximum required version
+	svio.ports[1].req_ver_major = 255;
+	svio.ports[1].req_ver_minor = 255;
+	svio.ports[1].present = 1;
+
+	REQUIRE(szgSolveSmartVIOGroup(svio.ports, 0x1) == -1);
+
+	// Failing - Check minor required version
+	svio.ports[1].req_ver_major = SVIO_IMPL_VER_MAJOR;
+	svio.ports[1].req_ver_minor = 255;
+	svio.ports[1].present = 1;
+
+	REQUIRE(szgSolveSmartVIOGroup(svio.ports, 0x1) == -1);
+
+	// Passing - Currently supported version
+	svio.ports[1].req_ver_major = SVIO_IMPL_VER_MAJOR;
+	svio.ports[1].req_ver_minor = SVIO_IMPL_VER_MINOR;
+	svio.ports[1].present = 1;
+
+	REQUIRE(szgSolveSmartVIOGroup(svio.ports, 0x1) == 120);
+}
+
+// Check for TXR2/TXR4 compatibility
+TEST_CASE( "Check TXR2/TXR4 compatibility", "[smartvio]" ) {
+	szgSmartVIOConfig svio = default_svio;
+
+	// Failing - TXR2 connected to TXR4
+	svio.ports[1].port_attr = SZG_ATTR_TXR4;
+	svio.ports[1].attr = 0;
+	svio.ports[1].present = 1;
+
+	REQUIRE(szgSolveSmartVIOGroup(svio.ports, 0x1) == -1);
+
+	svio = default_svio;
+
+	// Failing - TXR4 connected to TXR2
+	svio.ports[1].port_attr = 0;
+	svio.ports[1].attr = SZG_ATTR_TXR4;
+	svio.ports[1].present = 1;
+
+	REQUIRE(szgSolveSmartVIOGroup(svio.ports, 0x1) == -1);
+
+	svio = default_svio;
+
+	// Success - TXR4 connected to TXR4
+	svio.ports[1].port_attr = SZG_ATTR_TXR4;
+	svio.ports[1].attr = SZG_ATTR_TXR4;
+	svio.ports[1].present = 1;
+
+	REQUIRE(szgSolveSmartVIOGroup(svio.ports, 0x1) == 120);
 }
 
