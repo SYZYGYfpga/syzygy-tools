@@ -5,7 +5,7 @@ CFLAGS += -Wall
 
 TEST_BLOBS = test-dna-blobs/szg-tst-doublewide.bin test-dna-blobs/szg-pmod.bin
 
-all: smartvio-test dna-writer
+all: smartvio-test dna-writer seq-writer
 
 
 smartvio-test: smartvio/smartvio-test.cpp smartvio/syzygy.o
@@ -13,6 +13,10 @@ smartvio-test: smartvio/smartvio-test.cpp smartvio/syzygy.o
 
 
 dna-writer: dna-tools/dna-writer.cpp smartvio/syzygy.o
+	$(CXX) $(CFLAGS) -std=c++11 -I $(INCLUDEDIR) -Ismartvio -o $@ $^
+
+
+seq-writer: dna-tools/sequencer-writer.cpp
 	$(CXX) $(CFLAGS) -std=c++11 -I $(INCLUDEDIR) -Ismartvio -o $@ $^
 
 

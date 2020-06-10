@@ -14,5 +14,26 @@
 	"manufacturer_name": "Opal Kelly Incorporated",
 	"product_name":      "SZG-SENSOR",
 	"product_model":     "SZG-SENSOR",
-	"product_version":   "A"
+	"product_version":   "A",
+	"sequencer_threshold": [0,0,0],
+	"sequencer_enable_config": [
+		{
+			"delay": 0,
+			"input_dependency": 0,
+			"active_high": false,
+			"enabled": false
+		},
+		{
+			"delay": 0,
+			"input_dependency": 0,
+			"active_high": false,
+			"enabled": false
+		},
+		{
+			"delay": 0,
+			"input_dependency": 0,
+			"active_high": false,
+			"enabled": false
+		}
+	]
 }
