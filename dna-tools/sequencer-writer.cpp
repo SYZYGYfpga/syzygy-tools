@@ -42,7 +42,7 @@ using json = nlohmann::json;
 #define SEQ_DELAY_OFFSET 3
 #define SEQ_ENABLE_CONFIG_OFFSET 6
 
-#define THRESHOLD_SCALE (3.3 / 256)
+#define THRESHOLD_SCALE (3300.0 / 256.0)
 
 #define ENABLE_ACTIVE_LOW (1 << 3)
 #define ENABLE_DISABLED (1 << 4)
@@ -73,25 +73,30 @@ int main(int argc, char *argv[])
 	for (int i = 0; i < 3; i++) {
 		// Handle Sequencer Threshold values
 		sequencer_data[i + SEQ_THRESHOLD_OFFSET] =
-			(uint8_t) (sequencer_json["sequencer_threshold"][i].get<float>() / THRESHOLD_SCALE);
+			(uint8_t) (sequencer_json["sequencer_threshold_mv"][i].get<float>() / THRESHOLD_SCALE);
 
-		// Handle Enable output delay times
-		// TODO: Check bounds and error...
-		sequencer_data[i + SEQ_DELAY_OFFSET] =
-			sequencer_json["sequencer_enable_config"][i]["delay"].get<uint8_t>();
+		if (sequencer_json["sequencer_enable_config"][i]["enabled"].get<bool>()) {
+			// Handle Enable output delay times
+			// TODO: Check bounds and error...
+			sequencer_data[i + SEQ_DELAY_OFFSET] =
+				(uint8_t) (sequencer_json["sequencer_enable_config"][i]["delay_ms"].get<uint16_t>() / 10);
 
-		// Handle Enable output configuration
-		temp_enable_config = 0;
-		temp_enable_config |=
-			sequencer_json["sequencer_enable_config"][i]["input_dependency"].get<uint8_t>();
+			// Handle Enable output configuration
+			temp_enable_config = 0;
+			temp_enable_config |=
+				sequencer_json["sequencer_enable_config"][i]["input_dependency"].get<uint8_t>();
 
-		temp_enable_config |=
-			sequencer_json["sequencer_enable_config"][i]["active_high"].get<bool>() ? ENABLE_ACTIVE_LOW : 0;
+			temp_enable_config |=
+				sequencer_json["sequencer_enable_config"][i]["active_high"].get<bool>() ? 0 : ENABLE_ACTIVE_LOW;
 
-		temp_enable_config |=
-			sequencer_json["sequencer_enable_config"][i]["enabled"].get<bool>() ? 0 : ENABLE_DISABLED;
-		
-		sequencer_data[i + SEQ_ENABLE_CONFIG_OFFSET] = temp_enable_config;
+			temp_enable_config |=
+				sequencer_json["sequencer_enable_config"][i]["enabled"].get<bool>() ? 0 : ENABLE_DISABLED;
+			
+			sequencer_data[i + SEQ_ENABLE_CONFIG_OFFSET] = temp_enable_config;
+		} else {
+			sequencer_data[i + SEQ_DELAY_OFFSET] = 0xFF;
+			sequencer_data[i + SEQ_ENABLE_CONFIG_OFFSET] = 0xFF;
+		}
 	}
 
 	for (int i = 0; i < 9; i++) {

@@ -15,22 +15,22 @@
 	"product_name":      "SZG-SENSOR",
 	"product_model":     "SZG-SENSOR",
 	"product_version":   "A",
-	"sequencer_threshold": [0,0,0],
+	"sequencer_threshold_mv": [1650,3300,3300],
 	"sequencer_enable_config": [
 		{
-			"delay": 0,
+			"delay_ms": 500,
+			"input_dependency": 1,
+			"active_high": true,
+			"enabled": true
+		},
+		{
+			"delay_ms": 0,
 			"input_dependency": 0,
 			"active_high": false,
 			"enabled": false
 		},
 		{
-			"delay": 0,
-			"input_dependency": 0,
-			"active_high": false,
-			"enabled": false
-		},
-		{
-			"delay": 0,
+			"delay_ms": 0,
 			"input_dependency": 0,
 			"active_high": false,
 			"enabled": false
