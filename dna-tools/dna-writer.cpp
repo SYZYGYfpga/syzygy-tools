@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 	}
 
 	std::ifstream input_file(argv[1]);
-	std::ofstream output_file(argv[2]);
+	std::ofstream output_file(argv[2], std::ios::out | std::ios::binary);
 
 	json dna_json;
 
