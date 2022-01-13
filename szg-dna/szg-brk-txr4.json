@@ -1,0 +1,18 @@
+{
+	"max_5v_load":   0,
+	"max_3v3_load":  10,
+	"max_vio_load":  0,
+	"is_lvds":       false,
+	"is_doublewide": false,
+	"is_txr4":       true,
+	"vio": [
+		{ "min": 120, "max": 330 },
+		{ "min": 0,   "max": 0 },
+		{ "min": 0,   "max": 0 },
+		{ "min": 0,   "max": 0 }
+		],
+	"manufacturer_name": "Opal Kelly Incorporated",
+	"product_name":      "SZG-BRK-TXR4",
+	"product_model":     "SZG-BRK-TXR4",
+	"product_version":   "A"
+}
