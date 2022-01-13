@@ -71,9 +71,15 @@ int main(int argc, char *argv[])
 	input_file >> sequencer_json;
 
 	for (int i = 0; i < 3; i++) {
-		// Handle Sequencer Threshold values
-		sequencer_data[i + SEQ_THRESHOLD_OFFSET] =
-			(uint8_t) (sequencer_json["sequencer_threshold_mv"][i].get<float>() / THRESHOLD_SCALE);
+		// Scale the input threshold value for the ADCs input range
+		uint16_t threshold = (uint16_t) (sequencer_json["sequencer_threshold_mv"][i].get<float>() / THRESHOLD_SCALE);
+
+		// For any input threshold value above the ADCs input range, cap the value at the maximum allowed
+		if (threshold > 0xFF) {
+			threshold = 0xFF;
+		}
+
+		sequencer_data[i + SEQ_THRESHOLD_OFFSET] = (uint8_t) threshold;
 
 		if (sequencer_json["sequencer_enable_config"][i]["enabled"].get<bool>()) {
 			// Handle Enable output delay times
