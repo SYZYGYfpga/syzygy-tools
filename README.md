@@ -15,6 +15,19 @@ determine an appropriate VIO voltage for a set of peripherals.
 - dna-writer - An application for generating SYZYGY DNA blobs that can be
 written to peripheral MCUs.
 
+### Warning
+
+You should not attempt to flash firmware/DNA onto SYZYGY pods while
+they are connected to an Opal Kelly carrier that supports device sensors
+or any other carrier that automatically polls the SDA/SCL lines. The pMCU
+may share its SDA/SCL lines with the programming interface (this is the
+case for the ATTINY44a). I2C traffic during programming can interrupt 
+write/read/verify operations and may possibly put the pMCU in an
+unrecoverable state. Carriers that support device sensors have
+consistent I2C traffic to poll those sensors. It is highly 
+recommended to disconnect a pod from the SYZYGY port and supply external
+3.3V power while programming pMCU firmware/DNA.
+
 ### SmartVIO Library
 
 The SmartVIO library consists of a C header file (`syzygy.h`) along with
