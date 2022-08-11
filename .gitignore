@@ -6,3 +6,4 @@ smartvio/syzygy.o
 seq-writer
 
 *bin
+**env
