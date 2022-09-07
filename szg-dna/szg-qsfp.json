@@ -12,8 +12,8 @@
 		{ "min": 0,   "max": 0 }
 		],
 	"manufacturer_name": "Opal Kelly Incorporated",
-	"product_name":      "SZG-QSFP+",
-	"product_model":     "SZG-QSFP+",
+	"product_name":      "SZG-QSFP",
+	"product_model":     "SZG-QSFP",
 	"product_version":   "A",
 	"sequencer_threshold_mv": [1000,3300,3300],
 	"sequencer_enable_config": [
