@@ -1,0 +1,18 @@
+{
+	"max_5v_load":   0,
+	"max_3v3_load":  0,
+	"max_vio_load":  1000,
+	"is_lvds":       false,
+	"is_doublewide": false,
+	"is_txr4":       false,
+	"vio": [
+		{ "min": 330, "max": 330 },
+		{ "min": 0,   "max": 0 },
+		{ "min": 0,   "max": 0 },
+		{ "min": 0,   "max": 0 }
+		],
+	"manufacturer_name": "Opal Kelly Incorporated",
+	"product_name":      "SZG-PMOD",
+	"product_model":     "SZG-PMOD",
+	"product_version":   "B"
+}
