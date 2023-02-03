@@ -3,7 +3,8 @@ INCLUDEDIR = include
 
 CFLAGS += -Wall
 
-TEST_BLOBS = test-dna-blobs/szg-tst-doublewide.bin test-dna-blobs/szg-pmod.bin
+SZG_PMOD_BLOB = test-dna-blobs/szg-pmod-Bxx.bin
+DOUBLE_WIDE_BLOB =  test-dna-blobs/szg-tst-doublewide.bin 
 
 all: smartvio-test dna-writer seq-writer
 
@@ -23,15 +24,17 @@ seq-writer: dna-tools/sequencer-writer.cpp
 smartvio/syzygy.o: smartvio/syzygy.c
 	$(CC) $(CFLAGS) -I $(INCLUDEDIR) -o $@ -c $^
 
-
-$(TEST_BLOBS): test-dna-blobs/%.bin: szg-dna/%.json
+$(SZG_PMOD_BLOB): test-dna-blobs/%.bin: szg-dna/SZG-PMOD/%.json
 	mkdir -p test-dna-blobs
 	./dna-writer $< $@ ABC
 
+$(DOUBLE_WIDE_BLOB): test-dna-blobs/%.bin: szg-dna/SZG-TST/%.json 
+	mkdir -p test-dna-blobs
+	./dna-writer $< $@ ABC
 
 .PHONY: clean runtests
 
-runtests: dna-writer smartvio-test $(TEST_BLOBS)
+runtests: dna-writer smartvio-test $(SZG_PMOD_BLOB) $(DOUBLE_WIDE_BLOB)
 	./smartvio-test
 	
 

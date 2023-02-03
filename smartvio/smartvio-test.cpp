@@ -142,7 +142,7 @@ TEST_CASE( "No Peripherals Inserted", "[smartvio]" ) {
 // Basic test, read in a DNA blob for a POD-PMOD on port 1 and solve
 TEST_CASE( "Basic SmartVIO Test", "[smartvio]" ) {
 	// Read in POD-PMOD DNA Blob
-	std::ifstream dna_blob(std::string(TEST_BLOB_DIR) + std::string("szg-pmod.bin"), std::ifstream::in);
+	std::ifstream dna_blob(std::string(TEST_BLOB_DIR) + std::string("szg-pmod-Bxx.bin"), std::ifstream::in);
 	unsigned char dna_header[SZG_DNA_HEADER_LENGTH_V1 + 1];
 	szgSmartVIOConfig svio = default_svio;
 
