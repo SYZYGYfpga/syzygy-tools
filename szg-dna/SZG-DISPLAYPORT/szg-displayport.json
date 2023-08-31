@@ -1,0 +1,39 @@
+{
+	"max_5v_load":   150,
+	"max_3v3_load":  500,
+	"max_vio_load":  10,
+	"is_lvds":       false,
+	"is_doublewide": false,
+	"is_txr4":       true,
+	"vio": [
+		{ "min": 120, "max": 330 },
+		{ "min": 0,   "max": 0 },
+		{ "min": 0,   "max": 0 },
+		{ "min": 0,   "max": 0 }
+		],
+	"manufacturer_name": "Opal Kelly Incorporated",
+	"product_name":      "SZG-DISPLAYPORT",
+	"product_model":     "SZG-DISPLAYPORT",
+	"product_version":   "A",
+	"sequencer_threshold_mv": [1000,3300,3300],
+	"sequencer_enable_config": [
+		{
+			"delay_ms": 0,
+			"input_dependency": 1,
+			"active_high": true,
+			"enabled": true
+		},
+		{
+			"delay_ms": 0,
+			"input_dependency": 0,
+			"active_high": false,
+			"enabled": false
+		},
+		{
+			"delay_ms": 0,
+			"input_dependency": 0,
+			"active_high": false,
+			"enabled": false
+		}
+	]
+}
