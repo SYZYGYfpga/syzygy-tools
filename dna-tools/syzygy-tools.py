@@ -49,7 +49,10 @@ args = parser.parse_args()
 # Constraints that apply to this library itself
 
 # datetime's strftime format
-DEFAULT_SERIAL_DATE_FORMAT = "%y%U000"
+DEFAULT_SERIAL_DATE_FORMAT = "%y%U"
+
+# okFactory's available serialization digits
+OK_FACTORY_SERIALIZATION_LENGTH = 6
  
 # DNA Data Flash LocationS
 DNA_FLASH_OFFSET = 0xC00
@@ -187,15 +190,24 @@ def main():
             print(f"DNA: {dna_file_path}")
             print(f"Serial Prefix: {serial_prefix}")
             print("Scan serial label barcode or type serial to complete the full serial value (value is case insensitive. q to exit)")
-            label_serial = input(f"SERIAL: {serial_prefix}")
+            serial_valid = False
+            label_serial = ""
+            while not serial_valid:
+                label_serial = input(f"SERIAL: ")
+                if len(label_serial) <= OK_FACTORY_SERIALIZATION_LENGTH:
+                    serial_valid = True
+                else:
+                    print(f" Serial too long, length must be less than or equal to {OK_FACTORY_SERIALIZATION_LENGTH} characters.")
             if label_serial == 'q':
-                break
-
+                exit()
+            if len(label_serial) < OK_FACTORY_SERIALIZATION_LENGTH:
+                diff = OK_FACTORY_SERIALIZATION_LENGTH - len(label_serial)
+                label_serial = ("0" * diff) + label_serial # Pad the beginning of the serial with zeroes so its length is 6
             serial = f"{serial_prefix}{label_serial.upper()}"
-        
+
         print(f"DNA Serial: {serial}")
-    
-        # Genrate the DNA Data
+
+        # Generate the DNA Data
         dna_data = generate_dna_data(dna_file_path, serial)
 
         # Print DNA Data
