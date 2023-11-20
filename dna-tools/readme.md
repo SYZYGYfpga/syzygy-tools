@@ -10,18 +10,37 @@ C++ versions for generating DNA and Power Sequence binary data are also included
 
 The `syzygy-tools.py` script is an all-in-one tool for programming SYZYGY pMCU (ATTINY44A) firmware as well as parsing and loading SYZYGY DNA JSON config files. See the usage help below for all of the functions.
 
+###  ** Warning **
+
+You should not attempt to flash firmware/DNA onto SYZYGY pods while
+they are connected to an Opal Kelly carrier that supports device sensors
+or any other carrier that automatically polls the SDA/SCL lines. The pMCU
+may share its SDA/SCL lines with the programming interface (this is the
+case for the ATTINY44A). I2C traffic during programming can interrupt 
+write/read/verify operations and may possibly put the pMCU in an
+unrecoverable state. Carriers that support device sensors have
+consistent I2C traffic to poll those sensors. It is highly 
+recommended to disconnect a pod from the SYZYGY port and supply external
+3.3V power while programming pMCU firmware/DNA.
+
+## Hardware Requirements for Programming
+
+- AVR Programmer that is supported by AVRDUDE
+- 2x3 Tag Connect adapter for newer SYZYGY peripherals. A 6 pin 2mm header for older peripherals.
+
+Example: [Atmel-ICE](https://www.microchip.com/en-us/development-tool/atatmel-ice) with [TC2030-ICESPI-NL](https://www.tag-connect.com/product/tc2030-icespi-nl-no-leg-cable-for-use-with-atmel-ice)
+
 ## Setup
 
 - Install python 3.8+
 - Install the required python packages: `pip install -r requirements.txt`
 - Install AVRDUDE for programming
 
-
-### Setup for AVRDUDE in Windows
-
+### Using AVRDUDE in Windows
 
 - Install `AVRDUDE for Windows` https://github.com/mariusgreuel/avrdude
   - AVRDUDE for Windows includes support for ATATMEL-ICE programmer, where as WinAVR does not.
+  - WinAVR may also erase your existing PATH information on install.
   - Download the release zip and extract avrdude.exe, avrdude.conf and avrdude.pdb to a folder. 
   - Add that folder to the system [PATH](https://helpdeskgeek.com/windows-10/add-windows-path-environment-variable/)
 
@@ -30,7 +49,6 @@ The `syzygy-tools.py` script is an all-in-one tool for programming SYZYGY pMCU (
 **Examples**
 - `python .\syzygy-tools.py -d szg-adc-ltc2264.json -f ..\pod-fw\avr-dna-fw-main.hex`
 - `python .\syzygy-tools.py -d szg-tst-txr4.json -f ..\pod-fw\avr-dna-fw-test.hex`
-
 
 ### Usage Help
 ```

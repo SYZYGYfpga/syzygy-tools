@@ -7,15 +7,17 @@ of [SYZYGY](http://syzygyfpga.io/) compatible carriers and peripherals.
 
 These tools include:
 
-- syzygy.(h,c) - A library that can be used to parse SYZYGY DNA data and
+- `smartvio/syzygy.(h,c)` - A library that can be used to parse SYZYGY DNA data and
 determine an appropriate VIO voltage for a set of peripherals.
 
-- smartvio-test.cpp - A test suite for the syzygy.(h,c) library.
+- `smartvio/smartvio-test.cpp` - A test suite for the syzygy.(h,c) library.
 
-- dna-writer - An application for generating SYZYGY DNA blobs that can be
+- `dna-tools` - Applications for generating SYZYGY DNA blobs that can be
 written to peripheral MCUs.
 
-### Warning
+- `szg-dna` - Human readable SYZYGY DNA JSON config files for Opal Kelly peripherals.
+
+### ** Warning **
 
 You should not attempt to flash firmware/DNA onto SYZYGY pods while
 they are connected to an Opal Kelly carrier that supports device sensors
@@ -44,15 +46,12 @@ A test application `smartvio-test` is provided as a test suite for the
 SmartVIO solver algorithm. This test is based on the
 [Catch](https://github.com/catchorg/Catch2) library.
 
-### DNA Writer Application
+### DNA Tools Applications
 
-The `dna-writer` application can be used to generate a binary DNA blob from
-a JSON-format input. This application uses the
-[JSON for Modern C++](https://github.com/nlohmann/json) library. The DNA
-writer conforms to the SYZYGY DNA Specification v1.0. Please see the
-[SYZYGY](http://syzygyfpga.io/) website for more information.
-
-Please see the examples in the `pod-dna` folder for peripheral DNA examples.
+There are Python and C++ based tools provided in the `dna-tools` folder for generating 
+the binary DNA blobs from a JSON-formatted DNA file. See the readme in that folder 
+for usage information about the tools. Example JSON files for Opal Kelly peripherals 
+are provided in the `szg-dna` folder. 
 
 ## Building
 
