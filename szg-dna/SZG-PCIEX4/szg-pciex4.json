@@ -2,7 +2,7 @@
 	"max_5v_load":   0,
 	"max_3v3_load":  10,
 	"max_vio_load":  10,
-	"is_lvds":       true,
+	"is_lvds":       false,
 	"is_doublewide": false,
 	"is_txr4":       true,
 	"vio": [
